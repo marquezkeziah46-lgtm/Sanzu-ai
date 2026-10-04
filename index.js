@@ -4,7 +4,6 @@ const path = require('path');
 const SCRIPT_FILE = "auto.js";
 const SCRIPT_PATH = path.join(__dirname, SCRIPT_FILE);
 
-
 function start() {
     const main = spawn("node", [SCRIPT_PATH], {
         cwd: __dirname,
@@ -18,8 +17,10 @@ function start() {
         } else if (exitCode === 1) {
             console.log("Main process exited with code 1. Restarting...");
             start();
-        }  else {
+        } else {
             console.error(`Main process exited with code ${exitCode}`);
+            console.log("Restarting process automatically...");
+            start();
         }
     });
 }
